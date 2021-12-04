@@ -23,6 +23,29 @@ CREATE TABLE species (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE vets (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(50),
+    age INT,
+    date_of_graduation date,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE specializations (
+    vet_id INT,
+    species_id INT,
+    CONSTRAINT vets_id FOREIGN KEY(vets_id) REFERENCES vets(id),
+    CONSTRAINT species_id FOREIGN KEY(species_id) REFERENCES species(id)
+);
+
+CREATE TABLE visits (
+    vets_id INT,
+    animals_id INT,
+    visit_date DATE,
+    CONSTRAINT vets_id FOREIGN KEY(vets_id) REFERENCES vets(id),
+    CONSTRAINT animals_id FOREIGN KEY(animals_id) REFERENCES animals(id)
+);
+
 -- Delete species column
 ALTER TABLE animals DROP COLUMN species;
 
